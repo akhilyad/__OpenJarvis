@@ -126,6 +126,7 @@ bundle-dev = [
     "openjarvis[dev]",
     "openjarvis[inference-cloud]",
 ]
+mypy = ["mypy>=1.10"]
 
 [project.scripts]
 jarvis = "openjarvis.cli:main"
