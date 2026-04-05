@@ -101,6 +101,36 @@ sandbox-docker = ["docker>=7.0"]
 dashboard = ["textual>=0.80"]
 speech = ["faster-whisper>=1.0"]
 speech-deepgram = ["deepgram-sdk>=3.0"]
+operators-events = [
+    "psutil>=6.0",
+    "watchdog>=4.0",
+]
+voice = [
+    "sounddevice>=0.4",
+    "soundfile>=0.12",
+    "numpy>=1.24",
+]
+voice-vad = [
+    "openjarvis[voice]",
+    "webrtcvad-wheels>=2.0.10; sys_platform == 'win32'",
+    "webrtcvad>=2.0; sys_platform != 'win32'",
+]
+voice-wakeword = [
+    "openjarvis[voice]",
+    "openwakeword>=0.6",
+]
+bundle-voice = [
+    "openjarvis[voice,speech]",
+    "kokoro>=0.9",
+]
+screen = [
+    "mss>=9.0",
+    "Pillow>=10.0",
+]
+screen-ocr = [
+    "openjarvis[screen]",
+    "pytesseract>=0.3",
+]
 eval-wandb = ["wandb>=0.17"]
 eval-sheets = ["gspread>=6.0", "google-auth>=2.0"]
 docs = [
