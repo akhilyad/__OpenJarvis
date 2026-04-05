@@ -6,4 +6,13 @@ __version__ = "0.1.0"
 
 from openjarvis.sdk import Jarvis, JarvisSystem, MemoryHandle, SystemBuilder
 
-__all__ = ["Jarvis", "JarvisSystem", "MemoryHandle", "SystemBuilder", "__version__"]
+from openjarvis import exceptions
+
+__all__ = [
+    "Jarvis",
+    "JarvisSystem",
+    "MemoryHandle",
+    "SystemBuilder",
+    "__version__",
+    "exceptions",
+]
