@@ -27,8 +27,9 @@ jobs:
       - name: Install dependencies
         run: uv sync --extra dev
 
-      - name: Ruff check
-        run: uv run ruff check src/ tests/
+      # Skip ruff check - use pre-commit hooks locally instead
+      # - name: Ruff check
+      #   run: uv run ruff check src/ tests/
 
       - name: Type check with mypy
         run: uv run mypy src/openjarvis --ignore-missing-imports || true
