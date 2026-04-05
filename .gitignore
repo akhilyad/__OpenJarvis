@@ -92,6 +92,10 @@ frontend/node_modules/
 frontend/dist/
 frontend/build/
 frontend/.parcel-cache/
+frontend/tsconfig.tsbuildinfo
+
+# Server static (generated at build time)
+src/openjarvis/server/static/
 
 # Desktop (Tauri)
 desktop/node_modules/
