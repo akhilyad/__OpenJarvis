@@ -23,6 +23,7 @@ jobs:
   review:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    continue-on-error: true
     if: |
       github.event_name == 'pull_request' ||
       github.event_name == 'workflow_dispatch' ||
@@ -33,11 +34,22 @@ jobs:
       (github.event_name == 'pull_request_review_comment' &&
        contains(github.event.comment.body, '@claude') &&
        github.actor != 'claude[bot]')
+    env:
+      HAS_API_KEY: ${{ secrets.ANTHROPIC_API_KEY != '' }}
     steps:
+      - name: Skip if no API key configured
+        if: env.HAS_API_KEY != 'true'
+        run: |
+          echo "::warning::ANTHROPIC_API_KEY secret is not set — Claude review skipped."
+          echo "Add it at: Settings → Secrets and variables → Actions → New repository secret"
+          exit 0
+
       - uses: actions/checkout@v4
+        if: env.HAS_API_KEY == 'true'
 
       - name: Read review instructions
         id: review
+        if: env.HAS_API_KEY == 'true'
         run: |
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "instructions<<$EOF" >> "$GITHUB_OUTPUT"
@@ -45,6 +57,7 @@ jobs:
           echo "$EOF" >> "$GITHUB_OUTPUT"
 
       - uses: anthropics/claude-code-action@v1
+        if: env.HAS_API_KEY == 'true'
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
